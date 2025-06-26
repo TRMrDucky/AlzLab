@@ -57,8 +57,10 @@ def video_callback(option, cfg):
             frames = pipe.wait_for_frames()
             depth_frame = frames.get_depth_frame()
             depth_frame_data = np.asanyarray(depth_frame.get_data())
+            depth_color_map = cv2.applyColorMap(cv2.convertScaleAbs(depth_frame_data, 
+                                                                    alpha=0.5), cv2.COLORMAP_JET)
             
-            cv2.imshow('Depth Frame', depth_frame_data)
+            cv2.imshow('Depth Frame', depth_color_map)
 
             if cv2.waitKey(1) == ord('q'):
                 break
