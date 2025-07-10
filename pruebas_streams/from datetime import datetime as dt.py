@@ -16,6 +16,7 @@ RUTA_RAW = ""
 RUTA_PNG =  ""
 RUTA_CSV =  ""
 RUTA_BIN =  ""
+ruta_temp = ""
 
 
 def definir_rutas():
@@ -35,6 +36,7 @@ def definir_rutas():
     RUTA_PNG =  ruta_grabacion + "/PNG"
     RUTA_CSV =  ruta_grabacion + "/CSV"
     RUTA_BIN =  ruta_grabacion + "/BIN"
+    ruta_temp = RUTA + str(current_time.timestamp()) + ".bag"
     
 
     if not os.path.isdir(RUTA_PLY):
@@ -78,3 +80,4 @@ def definir_rutas():
         except FileExistsError:
             print(f"La carpeta {RUTA_BIN} ya existe")
             
+definir_rutas()
