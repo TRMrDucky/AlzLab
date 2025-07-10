@@ -1,8 +1,12 @@
 from datetime import datetime as dt
+#Librería oficial de librealsense para la detección y manipulación de la cámara
 import pyrealsense2 as rs
+#Para convertir los frames de la cámara a numpy, que es la forma en la que cv puede trabajar con ellos para mostrarlos
 import numpy as np
+#Librería de opencv para la manipulación de imágenes y vídeos
 import cv2
 
+#Crear u
 pipe = rs.pipeline()
 config = rs.config()
 
