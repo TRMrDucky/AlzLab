@@ -12,6 +12,8 @@ import subprocess
 
 import threading
 
+import sys
+
 RUTA = "/AlzLab/"
 RUTA_PLY = ""
 RUTA_RAW = ""
@@ -118,7 +120,10 @@ def grabar_datos():
         cv2.imshow('Depth Frame', depth_color_map)
 
         if cv2.waitKey(1) == ord('q'):
+            sys.exit(0)      
+        if cv2.waitKey(1) == ord('s'):
             break
+        
     pipe.stop()
 
 def mostrar_datos():
@@ -144,7 +149,10 @@ def mostrar_datos():
 
             
         if cv2.waitKey(1) == ord('q'):
+            sys.exit(0)      
+        if cv2.waitKey(1) == ord('s'):
             break    
+        
     pipe.stop()
 
 def exportar_datos_ply():
@@ -432,8 +440,10 @@ def prueba():
     threading.Thread(target=exportar_datos).start()
 
 def main():
-    grabar_datos()
-    exportar_datos()
+    while True:
+        mostrar_datos()
+        grabar_datos()
+        threading.Thread(target=exportar_datos).start()
 
 if __name__ == "__main__":
     main()
