@@ -10,6 +10,8 @@ import os
 
 import subprocess
 
+import threading
+
 RUTA = "/AlzLab/"
 RUTA_PLY = ""
 RUTA_RAW = ""
@@ -30,7 +32,8 @@ def definir_rutas():
     global RUTA_BIN 
 
     current_time = dt.now()
-    temp_rec_route = RUTA + str(current_time.timestamp()) + "/"
+    current_time_stamp_str = str(current_time.timestamp())
+    temp_rec_route = RUTA + current_time_stamp_str + "/"
 
     try:
         if not os.path.exists(temp_rec_route):
@@ -44,9 +47,8 @@ def definir_rutas():
     RUTA_PNG =  temp_rec_route + "/PNG"
     RUTA_CSV =  temp_rec_route + "/CSV"
     RUTA_BIN =  temp_rec_route + "/BIN"
-    temp_rec_route = RUTA + str(current_time.timestamp()) + ".bag"
+    temp_rec_route = RUTA + current_time_stamp_str + ".bag"
     
-
     if not os.path.isdir(RUTA_PLY):
         
         try:
@@ -343,6 +345,22 @@ def exportar_datos_bin():
         os.chdir(directorio_original)
         print(f"Vuelto al directorio original: {os.getcwd()}")
     
+def exportar_datos():
+    hilos = []
+    hilos.append(threading.Thread(target=exportar_datos_bin))
+    hilos.append(threading.Thread(target=exportar_datos_csv))
+    hilos.append(threading.Thread(target=exportar_datos_ply))
+    hilos.append(threading.Thread(target=exportar_datos_raw))
+    hilos.append(threading.Thread(target=exportar_datos_png))
+
+    for hilo in hilos:
+        hilo.start()
+        print(f"Hilo iniciado para exportar datos: {hilo.name}")
+
+    for hilo in hilos:
+        hilo.join()
+
+    print("Datos exportados exitosamente")
 
 def prueba():
     global temp_rec_route 
@@ -410,10 +428,7 @@ def prueba():
         except FileExistsError:
             print(f"La carpeta {RUTA_BIN} ya existe")
 
-    exportar_datos_bin()
-    exportar_datos_csv()
-    exportar_datos_ply()
-    exportar_datos_raw()    
-    exportar_datos_png()
+    threading.Thread(target=exportar_datos).start()
+
 
 prueba()
