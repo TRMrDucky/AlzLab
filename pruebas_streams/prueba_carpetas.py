@@ -360,6 +360,7 @@ def exportar_datos():
     for hilo in hilos:
         hilo.join()
 
+    os.remove(temp_rec_route)
     print("Datos exportados exitosamente")
 
 def prueba():
