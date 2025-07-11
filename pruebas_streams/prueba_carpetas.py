@@ -430,5 +430,9 @@ def prueba():
 
     threading.Thread(target=exportar_datos).start()
 
+def main():
+    grabar_datos()
+    exportar_datos()
 
-prueba()
+if __name__ == "__main__":
+    main()
