@@ -43,7 +43,7 @@ def definir_rutas():
         
         try:
             os.mkdir(RUTA_PLY)
-            print(f"Carpeta '{RUTA_PLY}' creada exitosamente")
+            print(f"Carpeta '{RUTA_PLY}' creada eeexitosamente")
                   
         except FileExistsError:
             print(f"La carpeta {RUTA_PLY} ya existe")
